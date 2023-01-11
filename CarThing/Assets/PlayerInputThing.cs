@@ -44,6 +44,24 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Break"",
+                    ""type"": ""Button"",
+                    ""id"": ""a20b5fe2-42b4-473e-9f22-c7bf83f80cf1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HandBreak"",
+                    ""type"": ""Button"",
+                    ""id"": ""8cbfd0b3-ea2f-47a7-ab7b-97bc63bebc58"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -90,6 +108,28 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
                     ""action"": ""Steering"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""017d27e5-9e25-438c-b696-94f3051c9b64"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Break"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""303b5ec9-e9ad-46a6-a41f-062ac4d2c5d1"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HandBreak"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -100,6 +140,8 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Forward = m_Player.FindAction("Forward", throwIfNotFound: true);
         m_Player_Steering = m_Player.FindAction("Steering", throwIfNotFound: true);
+        m_Player_Break = m_Player.FindAction("Break", throwIfNotFound: true);
+        m_Player_HandBreak = m_Player.FindAction("HandBreak", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,12 +203,16 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Forward;
     private readonly InputAction m_Player_Steering;
+    private readonly InputAction m_Player_Break;
+    private readonly InputAction m_Player_HandBreak;
     public struct PlayerActions
     {
         private @PlayerInputThing m_Wrapper;
         public PlayerActions(@PlayerInputThing wrapper) { m_Wrapper = wrapper; }
         public InputAction @Forward => m_Wrapper.m_Player_Forward;
         public InputAction @Steering => m_Wrapper.m_Player_Steering;
+        public InputAction @Break => m_Wrapper.m_Player_Break;
+        public InputAction @HandBreak => m_Wrapper.m_Player_HandBreak;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -182,6 +228,12 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
                 @Steering.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteering;
                 @Steering.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteering;
                 @Steering.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSteering;
+                @Break.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Break.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Break.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @HandBreak.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandBreak;
+                @HandBreak.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandBreak;
+                @HandBreak.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHandBreak;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -192,6 +244,12 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
                 @Steering.started += instance.OnSteering;
                 @Steering.performed += instance.OnSteering;
                 @Steering.canceled += instance.OnSteering;
+                @Break.started += instance.OnBreak;
+                @Break.performed += instance.OnBreak;
+                @Break.canceled += instance.OnBreak;
+                @HandBreak.started += instance.OnHandBreak;
+                @HandBreak.performed += instance.OnHandBreak;
+                @HandBreak.canceled += instance.OnHandBreak;
             }
         }
     }
@@ -200,5 +258,7 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
     {
         void OnForward(InputAction.CallbackContext context);
         void OnSteering(InputAction.CallbackContext context);
+        void OnBreak(InputAction.CallbackContext context);
+        void OnHandBreak(InputAction.CallbackContext context);
     }
 }
