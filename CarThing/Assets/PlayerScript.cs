@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [Header("Car Settings")]
+    [SerializeField] private float maxSpeed = 40f;
     [SerializeField] private float accelerationFactor = 30.0f;
     [SerializeField] private float turnFactor = 3.5f;
-    [SerializeField] private float driftFactor = 1f;
-    [SerializeField] private float maxSpeed = 40f;
+    [SerializeField] private float driftFactor = 0.98f;
+
 
     private float accelerationInput = 0f;
     private float steeringInput = 0f;
@@ -30,6 +31,8 @@ public class PlayerScript : MonoBehaviour
     private void ApplyEngineForce()
     {
         upVelocity = Vector2.Dot(transform.up, rb.velocity);
+
+        Debug.Log(rb.velocity.magnitude + " " + upVelocity);
 
         if (accelerationInput > 0 && upVelocity > maxSpeed)
         {
@@ -64,11 +67,9 @@ public class PlayerScript : MonoBehaviour
     {
         Vector2 forwardVelocity = transform.up * Vector2.Dot(rb.velocity, transform.up);
 
-        Debug.Log(forwardVelocity + " " + transform.up + " " + Vector2.Dot(rb.velocity, transform.up));
-
         Vector2 rightVelocity = transform.right * Vector2.Dot(rb.velocity, transform.right);
 
-      //  rb.velocity = forwardVelocity + rightVelocity * driftFactor;
+        rb.velocity = forwardVelocity + rightVelocity * driftFactor;
     }
 
     public void SetaccelerationInput(float value)

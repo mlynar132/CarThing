@@ -29,12 +29,12 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Forward"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""b630f47c-4a01-4fc1-8e79-8fcb5dfe25fc"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Steering"",
@@ -66,15 +66,37 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""b947ec4d-43a6-45f6-97cc-425d8c7ef970"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""ccd7b3a0-2cdd-4499-9943-64c78fbea32a"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Forward"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""fec9794b-1bbc-4be5-987a-c13a884e10e1"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Forward"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a4922d48-e893-493a-a846-22c86e751a2e"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Forward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""1D Axis"",
@@ -88,9 +110,9 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
-                    ""id"": ""23862178-3f2a-41e6-9d90-8474a8239c03"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""name"": ""positive"",
+                    ""id"": ""6aeaf56d-7034-4e22-a2b4-d6fde618cb4b"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -99,9 +121,9 @@ public partial class @PlayerInputThing : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
-                    ""id"": ""6aeaf56d-7034-4e22-a2b4-d6fde618cb4b"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""name"": ""negative"",
+                    ""id"": ""23862178-3f2a-41e6-9d90-8474a8239c03"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
